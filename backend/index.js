@@ -8,7 +8,9 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: "https://mellifluous-puppy-efc100.netlify.app/"
+}));
 app.use(express.json());
 
 app.use("/api/todos", todoRoutes);
