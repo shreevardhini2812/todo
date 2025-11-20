@@ -8,12 +8,18 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors({
-    origin: "https://mellifluous-puppy-efc100.netlify.app/"
-}));
-app.use(express.json());
-
 app.use("/api/todos", todoRoutes);
+const allowedOrigins = [
+  "https://mellifluous-puppy-efc100.netlify.app/",
+  "http://localhost:5000"
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) callback(null, true);
+    else callback(new Error("CORS not allowed"));
+  }
+}));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
