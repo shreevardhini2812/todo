@@ -8,7 +8,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use("/api/todos", todoRoutes);
+
 const allowedOrigins = [
   "https://mellifluous-puppy-efc100.netlify.app/",
   "http://localhost:5173"
@@ -20,6 +20,6 @@ app.use(cors({
     else callback(new Error("CORS not allowed"));
   }
 }));
-
+app.use("/api/todos", todoRoutes);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
