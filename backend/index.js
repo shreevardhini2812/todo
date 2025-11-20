@@ -11,7 +11,7 @@ const app = express();
 app.use("/api/todos", todoRoutes);
 const allowedOrigins = [
   "https://mellifluous-puppy-efc100.netlify.app/",
-  "http://localhost:5000"
+  "http://localhost:5173"
 ];
 
 app.use(cors({
