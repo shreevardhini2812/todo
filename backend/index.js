@@ -15,11 +15,16 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) callback(null, true);
-    else callback(new Error("CORS not allowed"));
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // allow Postman / server-to-server
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log("Blocked CORS origin:", origin);
+      callback(new Error("CORS not allowed"));
+    }
   }
 }));
-app.use("/api/todos", todoRoutes);
+app.use("/todos", todoRoutes);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
