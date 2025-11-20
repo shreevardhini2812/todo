@@ -8,22 +8,14 @@ dotenv.config();
 connectDB();
 
 const app = express();
-
-const allowedOrigins = [
-  "https://mellifluous-puppy-efc100.netlify.app/",
-  "http://localhost:5173"
-];
+app.use(express.json());
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // allow Postman / server-to-server
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.log("Blocked CORS origin:", origin);
-      callback(new Error("CORS not allowed"));
-    }
-  }
+  origin: [
+    "https://mellifluous-puppy-efc100.netlify.app",
+    "http://localhost:5173"
+  ],
+  credentials: true
 }));
 app.use("/todos", todoRoutes);
 const PORT = process.env.PORT || 5000;
