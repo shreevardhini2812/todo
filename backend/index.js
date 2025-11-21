@@ -11,12 +11,9 @@ app.use(express.json());
 
 // ------------------ FIXED CORS CONFIG ------------------
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://mellifluous-puppy-efc100.netlify.app"
-  ],
+  origin: ["http://localhost:5173", "https://mellifluous-puppy-efc100.netlify.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: false,
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
 // Handle preflight requests
